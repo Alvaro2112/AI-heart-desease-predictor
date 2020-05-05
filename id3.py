@@ -23,8 +23,6 @@ class ID3:
         # construire l'arbre.
         attributs = {}
         for donnee in donnees:
-            print(donnee)
-            print( donnee[1].items())
             for attribut, valeur in donnee[1].items():
                 valeurs = attributs.get(attribut)
                 if valeurs is None:

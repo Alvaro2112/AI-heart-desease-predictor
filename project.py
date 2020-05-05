@@ -1,4 +1,4 @@
-import csvtool
+from  csvtool import csv_to_array
 from noeud_de_decision import NoeudDeDecision
 from id3 import ID3
 
@@ -21,4 +21,6 @@ class ResultValues():
 
 
 if __name__ == "__main__":
-    print(csvtool.csv_to_array("test_public_bin.csv"))
+   d = csv_to_array('train_bin.csv')
+   id3 = ID3()
+   arbre = id3.construit_arbre(d)

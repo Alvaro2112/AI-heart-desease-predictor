@@ -28,12 +28,3 @@ def csv_to_array(name):
             line_count +=1
     return ret
 
-d = csv_to_array('train_bin.csv')
-print(d)
-id3 = ID3()
-arbre = id3.construit_arbre(d)
-print('Arbre de décision :')
-print(arbre)
-e = csv_to_array("test_public_bin.csv")
-
-print(arbre.classifie(e[1][1]))

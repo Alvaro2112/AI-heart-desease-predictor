@@ -46,6 +46,7 @@ class NoeudDeDecision:
         rep = ''
         if self.terminal():
             rep += 'Alors {}'.format(self.classe().upper())
+            return self.classe()
         else:
             valeur = donnee[self.attribut]
             enfant = self.enfants[valeur]
@@ -54,7 +55,7 @@ class NoeudDeDecision:
                 rep += enfant.classifie(donnee)
             except:
                 rep += self.p_class
-        return rep
+     #   return rep
 
     def repr_arbre(self, level=0):
         """ Représentation sous forme de string de l'arbre de décision duquel\
@@ -66,10 +67,10 @@ class NoeudDeDecision:
             rep += '---'*level
             rep += 'Alors {}\n'.format(self.classe().upper())
             rep += '---'*level
-            rep += 'Décision basée sur les données:\n'
-            for donnee in self.donnees:
-                rep += '---'*level
-                rep += str(donnee) + '\n' 
+           # rep += 'Décision basée sur les données:\n'
+           # for donnee in self.donnees:
+           #     rep += '---'*level
+           #     rep += str(donnee) + '\n' 
 
         else:
             for valeur, enfant in self.enfants.items():

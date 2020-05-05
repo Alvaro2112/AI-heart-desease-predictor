@@ -10,9 +10,20 @@ def test( train,test):
     arbre = id3.construit_arbre(train)
 
     num_test = len(test)
-
+    num_succ = 0.0
     for row in test :
-        
+        c = arbre.classifie(row[1])
+        if c == row[0]:
+            num_succ +=1.0
+    print(num_succ/num_test)
+test("train_bin.csv", "test_public_bin.csv")
+            
+
+
+
+
+
+
 
 
 
