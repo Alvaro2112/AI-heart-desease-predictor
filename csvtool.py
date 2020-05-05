@@ -3,7 +3,7 @@ from noeud_de_decision import NoeudDeDecision
 from id3 import ID3
 
 
-def csv_to_dict(name):
+def csv_to_array(name):
     ret = list()
     with open(name) as csv_file:
         line_count =0
