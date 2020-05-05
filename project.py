@@ -1,3 +1,7 @@
+import csvtool
+from noeud_de_decision import NoeudDeDecision
+from id3 import ID3
+
 class ResultValues():
 
     def __init__(self):
@@ -14,3 +18,7 @@ class ResultValues():
 
     def get_results(self):
         return [self.arbre, self.faits_initiaux, self.regles, self.arbre_advance]
+
+
+if __name__ == "__main__":
+    print(csvtool.csv_to_array("test_public_bin.csv"))
