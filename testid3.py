@@ -3,20 +3,23 @@ from id3 import ID3
 from csvtool import csv_to_array
 
 def test( train,test):
+
     train = csv_to_array(train)
     test = csv_to_array(test)
 
     id3 = ID3()
     arbre = id3.construit_arbre(train)
-
     num_test = len(test)
     num_succ = 0.0
     for row in test :
         c = arbre.classifie(row[1])
         if c == row[0]:
             num_succ +=1.0
-    print(num_succ/num_test)
-test("train_bin.csv", "test_public_bin.csv")
+    print(num_succ)
+
+
+if __name__ == "__main__":
+    test("train_bin.csv", "test_public_bin.csv")
             
 
 

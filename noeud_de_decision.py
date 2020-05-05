@@ -45,16 +45,14 @@ class NoeudDeDecision:
 
         rep = ''
         if self.terminal():
-            rep += 'Alors {}'.format(self.classe().upper())
             return self.classe()
         else:
             valeur = donnee[self.attribut]
             enfant = self.enfants[valeur]
-            rep += 'Si {} = {}, '.format(self.attribut, valeur.upper())
             try:
-                rep += enfant.classifie(donnee)
+                return enfant.classifie(donnee)
             except:
-                rep += self.p_class
+                return  self.p_class
      #   return rep
 
     def repr_arbre(self, level=0):
