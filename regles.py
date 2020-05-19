@@ -1,4 +1,6 @@
 import copy
+from task4 import cure
+from reglesansvariables import RegleSansVariables
 
   
 
@@ -17,6 +19,25 @@ def genere_regles_rec(node, rules):
     return new_rules
 
 
+def explain(example, arbre,healthy_rules):
+    path = arbre.find_path(example)
+    cond =set()
+    conc =""
+    for i in path.items():
+        if(i[0] != 'target'):
+            cond.add("%s = %s " % (i[0], i[1]))
+        else :
+            conc = i[1]
+
+    r = RegleSansVariables(cond,conc)
+    print(r)
+    num_changes =0
+    
+    if path['target'] == '1':     ### if sick then show the treatment
+        treat,num_changes = cure(healthy_rules,path)
+        print(treat)
+
+    return  num_changes
     # r = Regle({'a': 0, 'b': 0}, 0)
     # set = [[0, {'a': 0, 'b': 0}], [0, {'a': 0, 'b': 1}]]
     # print(r)

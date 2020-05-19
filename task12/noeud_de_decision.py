@@ -42,7 +42,6 @@ class NoeudDeDecision:
             :param donnee: la donnée à classifier.
             :return: la classe de la donnée selon le noeud de décision courant.
         """
-        
         if self.terminal():
             return self.classe()   
         else:
@@ -53,7 +52,6 @@ class NoeudDeDecision:
                 return enfant.classifie(donnee)
             except:
                 return  self.p_class
-     #   return rep
 
     def find_path(self, donnee):
         """ Classifie une donnée à l'aide de l'arbre de décision duquel le noeud\
@@ -62,18 +60,17 @@ class NoeudDeDecision:
             :param donnee: la donnée à classifier.
             :return: la classe de la donnée selon le noeud de décision courant.
         """
-
-        rep = ''
+        rep = dict()
         if self.terminal():
-            rep += 'Alors {}'.format(self.classe().upper())
+            rep['target'] = self.classe().upper()
         else:
             valeur = donnee[self.attribut]
             enfant = self.enfants[valeur]
-            rep += 'Si {} = {}, '.format(self.attribut, valeur.upper())
+            rep[self.attribut] =  valeur.upper() 
             try:
-                rep += enfant.find_path(donnee)
+                rep = enfant.find_path(donnee)
             except:
-                rep += self.p_class
+                1
         return rep
 
 
