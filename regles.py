@@ -34,7 +34,7 @@ def explain(example, arbre,healthy_rules):
     num_changes =0
     
     if path['target'] == '1':     ### if sick then show the treatment
-        treat,num_changes = cure(healthy_rules,path)
+        treat,num_changes = cure(healthy_rules, path.pop['target'])
         print(treat)
 
     return  num_changes
