@@ -53,25 +53,26 @@ class NoeudDeDecision:
             except:
                 return  self.p_class
 
-    def find_path(self, donnee):
+    def find_path(self, donnee,path):
         """ Classifie une donnée à l'aide de l'arbre de décision duquel le noeud\
             courant est la racine.
 
             :param donnee: la donnée à classifier.
             :return: la classe de la donnée selon le noeud de décision courant.
         """
-        rep = dict()
+       
         if self.terminal():
-            rep['target'] = self.classe().upper()
+            path['target'] =  self.classe() 
+            return path
         else:
             valeur = donnee[self.attribut]
             enfant = self.enfants[valeur]
-            rep[self.attribut] =  valeur.upper() 
+            path[self.attribut] =  valeur.upper() 
             try:
-                rep = enfant.find_path(donnee)
+                return enfant.find_path(donnee,path)
             except:
-                1
-        return rep
+                path['target'] = self.p_class
+                return path
 
 
     def repr_arbre(self, level=0) :

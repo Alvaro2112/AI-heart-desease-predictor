@@ -12,7 +12,7 @@ class RegleSansVariables:
             :param conclusion: la proposition (sans variables) résultant du\
             déclenchement de la règle.
         """
-
+        self.path = dict()
         self.conditions = set(conditions)
         self.conclusion = conclusion
 
