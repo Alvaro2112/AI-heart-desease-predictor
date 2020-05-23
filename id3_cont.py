@@ -91,7 +91,7 @@ class ID3_modif:
             newdroite = set()
             newgauche =set()
             for x in attributs[min_attr]:
-                    if (x >= part_val):
+                    if (x > part_val):
                         newdroite.add(x)
                     else:
                         newgauche.add(x)
