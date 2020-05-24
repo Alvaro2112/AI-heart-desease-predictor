@@ -37,6 +37,6 @@ class ResultValues():
     def save_count(self, max_changes, ppl):
         return tk3.explain_and_cure(ppl, self.arbre, self.healthy_rules(), max_changes)
 
-if _name_ == '_main_':
+if __name__ == '_main_':
     ee = ResultValues()
     print(ee.save_count(2,ee.train_discrete))
