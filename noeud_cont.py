@@ -48,7 +48,7 @@ class NoeudDeDecision_cont:
         else:
             valeur = donnee[self.attribut]
             child =None
-            if valeur >= self.part_val:
+            if float(valeur) >= self.part_val:
                 child = self.enfants["droite"]
             else :
                 child = self.enfants["gauche"]

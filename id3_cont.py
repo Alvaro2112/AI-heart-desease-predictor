@@ -90,7 +90,7 @@ class ID3_cont:
 
             enfants["droite"] = self.construit_arbre_recur(partitions["droite"],new_attr_droite,predominant_class)
             enfants["gauche"] = self.construit_arbre_recur(partitions["gauche"],new_attr_gauche,predominant_class)
-
+            print("MIN ATTR",min_attr)
             return NoeudDeDecision_cont(min_attr, donnees, str(predominant_class), enfants,part_val)
 
     def partitionne(self, donnees, attribut, val_part):
@@ -107,7 +107,7 @@ class ID3_cont:
         
         for donnee in donnees:
             where =""
-            if donnee[1][attribut] < val_part:
+            if float(donnee[1][attribut]) < val_part:
                 where ="gauche"
             else :
                 where ="droite"
@@ -131,11 +131,11 @@ class ID3_cont:
         d_j = list()
         if where =="droite":
             for d in donnees:
-                if d[1][attribut]>= part_val:
+                if float(d[1][attribut])>= part_val:
                     d_j.append(d)
         else:
             for d in donnees:
-                if d[1][attribut] < part_val:
+                if float(d[1][attribut]) < part_val:
                     d_j.append(d)
 
         nombre_aj = len(d_j)
@@ -185,7 +185,7 @@ class ID3_cont:
         prob_less = 0
         
         for donnee in donnees:
-            if donnee[1][attribut] < part_val:
+            if float(donnee[1][attribut]) < part_val:
                 prob_less += 1/len(donnees)
 
         p = [prob_less, 1-prob_less]
