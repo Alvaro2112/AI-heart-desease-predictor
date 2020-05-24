@@ -80,7 +80,7 @@ class ID3_cont:
             newdroite = set()
             newgauche =set()
             for x in attributs[min_attr]:
-                    if (x > part_val):
+                    if (x >= part_val):
                         newdroite.add(x)
                     else:
                         newgauche.add(x)
@@ -90,7 +90,6 @@ class ID3_cont:
 
             enfants["droite"] = self.construit_arbre_recur(partitions["droite"],new_attr_droite,predominant_class)
             enfants["gauche"] = self.construit_arbre_recur(partitions["gauche"],new_attr_gauche,predominant_class)
-            print("MIN ATTR",min_attr)
             return NoeudDeDecision_cont(min_attr, donnees, str(predominant_class), enfants,part_val)
 
     def partitionne(self, donnees, attribut, val_part):
@@ -138,19 +137,17 @@ class ID3_cont:
                 if float(d[1][attribut]) < part_val:
                     d_j.append(d)
 
-        nombre_aj = len(d_j)
         
         # Permet d'éviter les divisions par 0.
-        if nombre_aj == 0:
+        if not d_j :
             return 0
         
         donnees_ci = [donnee for donnee in d_j if donnee[0] == classe]
-        nombre_ci = len(donnees_ci)
 
         # p(c_i|a_j) = nombre d'occurrences de la classe c_i parmi les données 
         #              pour lesquelles A vaut a_j /
         #              nombre d'occurrences de la valeur a_j parmi les données.
-        return nombre_ci / nombre_aj
+        return float(len(donnees_ci) / len(d_j))
 
     def h_C_aj(self, donnees, attribut, valeur_de_partition, where = "droite"):
         """ l'entropie de la classe parmi les données pour lesquelles\
@@ -196,15 +193,15 @@ class ID3_cont:
 
         return sum([p_a * h_a for p_a, h_a in zip(p, h)])
 
-
+    def range_of_attr(self,donnees,attributs,attribut):
+        return range(int(min(attributs[attribut])), int(max(attributs[attribut])))
    
     def find_min_entr(self,donnees,attributs):
-            
         min_entr = 1e6
         min_attr = " "
         min_val =1
         for a in attributs.keys():
-            for v in attributs[a]:
+            for v in self.range_of_attr(donnees,attributs,a):
                 entr = self.h_C_A(donnees,a,v)
                 if min_entr > entr:
                     min_entr=entr
