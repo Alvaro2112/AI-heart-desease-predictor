@@ -1,11 +1,7 @@
 import Task4 as tk4
 
-def explain_and_cure(people,rules,tree):
+def explain_and_cure(people,tree,healthy_rules):
     
-    healthy_rules = []
-    for r in rules:
-        if r.conclusion == '0':
-            healthy_rules.append(r.path)
     num_cure =0
 
     for p in people:
