@@ -5,7 +5,7 @@ def rules_generator(node, rules):
     if node.terminal():
         for rule in rules:
             rule.conclusion = node.classe()
-        new_rules= rules
+        new_rules = rules
     else:
         new_rules = []
         for i in node.enfants.items():
@@ -15,5 +15,3 @@ def rules_generator(node, rules):
                 rule.path[node.attribut] = i[0]
             new_rules = new_rules + rules_generator(i[1], new_rule)
     return new_rules
-
-

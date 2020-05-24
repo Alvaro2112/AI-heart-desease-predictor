@@ -15,7 +15,7 @@ class ResultValues():
         id3 = ID3()
         # Task 1
         self.arbre = id3.construit_arbre(self.train_discrete)
-        self.print_precision(self.arbre,test_discrete)
+        self.print_precision(self.arbre, test_discrete)
 
         # Task 3
         self.faits_initiaux = test_discrete
@@ -26,17 +26,17 @@ class ResultValues():
         test_continuous = csv_to_array('test_public_continuous.csv')
         id3_cont = ID3_cont()
         self.arbre_advance = id3_cont.construit_arbre(train_continuous)
-        self.print_precision(self.arbre_advance,test_continuous)
+        self.print_precision(self.arbre_advance, test_continuous)
 
-    def print_precision(self,tree,test):
-        c =0
-        tot =0
+    def print_precision(self, tree, test):
+        c = 0
+        tot = 0
         for t in test:
             if t[0] == tree.classifie(t[1]):
-                c+=1
-            tot+=1
-        print("L'arbre classifie bien",c," personnes sur un total de ",tot,'personnes, donc ',(c/tot)*100,' pourcent de réussite. ')
-
+                c += 1
+            tot += 1
+        print("L'arbre classifie bien", c, " personnes sur un total de ", tot, 'personnes, donc ', (c / tot) * 100,
+              ' pourcent de réussite. ')
 
     def get_results(self):
         return [self.arbre, self.faits_initiaux, self.regles, self.arbre_advance]
@@ -51,9 +51,10 @@ class ResultValues():
     def save_count(self, max_changes, ppl):
         return tk3.explain_and_cure_no_print(ppl, self.arbre, self.healthy_rules(), max_changes)
 
+
 if __name__ == '__main__':
     result = ResultValues()
     a, b = result.save_count(2, result.train_discrete)
-    print("Saved", a, "persons out of", b , "persons with a max of 2 changes" )
+    print("Saved", a, "persons out of", b, "persons with a max of 2 changes")
     a, b = result.save_count(1, result.train_discrete)
     print("Saved", a, "persons out of", b, "persons with a max of 1 changes")

@@ -16,12 +16,14 @@ def explain_and_cure(people, tree, healthy_rules, max_changes=2):
                 num_cure += 1
                 print("We can cure someone with attributes  :", d, " by changing ", how)
             else:
-                print("We can not cure someone with attributes  :", d, " by changing at most", max_changes, "attributes")
+                print("We can not cure someone with attributes  :", d, " by changing at most", max_changes,
+                      "attributes")
         else:
             d.pop('target')
-            print("Someone with attributes :",d,"is healthy")
+            print("Someone with attributes :", d, "is healthy")
 
-    return num_cure , tot_sick_ppl
+    return num_cure, tot_sick_ppl
+
 
 def explain_and_cure_no_print(people, tree, healthy_rules, max_changes=2):
     num_cure = 0
@@ -39,4 +41,4 @@ def explain_and_cure_no_print(people, tree, healthy_rules, max_changes=2):
         else:
             d.pop('target')
 
-    return num_cure , tot_sick_ppl
+    return num_cure, tot_sick_ppl

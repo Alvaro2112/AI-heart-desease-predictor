@@ -2,7 +2,6 @@ import copy
 
 
 def cure(sick_attr, health_attr):
-
     min_changes = dict()
     delta_curr = len(sick_attr)
     delta_min = len(sick_attr)

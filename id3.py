@@ -189,8 +189,8 @@ class ID3:
 
         # Si p vaut 0 -> plog(p) vaut 0.
         return -sum([p_ci_aj * log(p_ci_aj, 2.0)
-                    for p_ci_aj in p_ci_ajs
-                    if p_ci_aj != 0])
+                     for p_ci_aj in p_ci_ajs
+                     if p_ci_aj != 0])
 
     def h_C_A(self, donnees, attribut, valeurs):
         """ H(C|A) - l'entropie de la classe après avoir choisi de partitionner\

@@ -53,6 +53,7 @@ class ID3_cont:
             :return: une instance de NoeudDeDecision correspondant à la racine de\
             l'arbre de décision.
         """
+
         def classe_unique(donnees):
             """ Vérifie que toutes les données appartiennent à la même classe. """
 
@@ -71,7 +72,7 @@ class ID3_cont:
             return NoeudDeDecision_cont(None, donnees, str(predominant_class))
 
         else:
-            min_attr, part_val = self.find_min_entr(donnees,attributs)
+            min_attr, part_val = self.find_min_entr(donnees, attributs)
 
             new_attr_gauche = attributs.copy()
             new_attr_droite = attributs.copy()
@@ -80,19 +81,19 @@ class ID3_cont:
             enfants = {}
 
             newdroite = set()
-            newgauche =set()
+            newgauche = set()
             for x in attributs[min_attr]:
-                    if (x >= part_val):
-                        newdroite.add(x)
-                    else:
-                        newgauche.add(x)
+                if (x >= part_val):
+                    newdroite.add(x)
+                else:
+                    newgauche.add(x)
 
-            new_attr_gauche[min_attr] =newgauche
+            new_attr_gauche[min_attr] = newgauche
             new_attr_droite[min_attr] = newdroite
 
-            enfants["droite"] = self.construit_arbre_recur(partitions["droite"],new_attr_droite,predominant_class)
-            enfants["gauche"] = self.construit_arbre_recur(partitions["gauche"],new_attr_gauche,predominant_class)
-            return NoeudDeDecision_cont(min_attr, donnees, str(predominant_class), enfants,part_val)
+            enfants["droite"] = self.construit_arbre_recur(partitions["droite"], new_attr_droite, predominant_class)
+            enfants["gauche"] = self.construit_arbre_recur(partitions["gauche"], new_attr_gauche, predominant_class)
+            return NoeudDeDecision_cont(min_attr, donnees, str(predominant_class), enfants, part_val)
 
     def partitionne(self, donnees, attribut, val_part):
         """ Partitionne les données sur les valeurs a_j de l'attribut A.
@@ -105,22 +106,21 @@ class ID3_cont:
         """
         partitions = dict()
 
-
         for donnee in donnees:
-            where =""
+            where = ""
             if float(donnee[1][attribut]) < val_part:
-                where ="gauche"
-            else :
-                where ="droite"
+                where = "gauche"
+            else:
+                where = "droite"
 
-            if partitions.get(where)== None:
+            if partitions.get(where) == None:
                 partitions[where] = list()
 
             partitions[where].append(donnee)
 
         return partitions
 
-    def p_ci_aj(self, donnees, attribut, part_val, classe, where = "droite"):
+    def p_ci_aj(self, donnees, attribut, part_val, classe, where="droite"):
         """ p(c_i|a_j) - la probabilité conditionnelle que la classe C soit c_i\
             :param list donnees: les données d'apprentissage.
             :param attribut: l'attribut A.
@@ -130,18 +130,17 @@ class ID3_cont:
         """
         # Nombre d'occurrences de la valeur a_j parmi les données.
         d_j = list()
-        if where =="droite":
+        if where == "droite":
             for d in donnees:
-                if float(d[1][attribut])>= part_val:
+                if float(d[1][attribut]) >= part_val:
                     d_j.append(d)
         else:
             for d in donnees:
                 if float(d[1][attribut]) < part_val:
                     d_j.append(d)
 
-
         # Permet d'éviter les divisions par 0.
-        if not d_j :
+        if not d_j:
             return 0
 
         donnees_ci = [donnee for donnee in d_j if donnee[0] == classe]
@@ -151,7 +150,7 @@ class ID3_cont:
         #              nombre d'occurrences de la valeur a_j parmi les données.
         return float(len(donnees_ci) / len(d_j))
 
-    def h_C_aj(self, donnees, attribut, valeur_de_partition, where = "droite"):
+    def h_C_aj(self, donnees, attribut, valeur_de_partition, where="droite"):
         """ l'entropie de la classe parmi les données pour lesquelles\
             :param list donnees: les données d'apprentissage.
             :param attribut: l'attribut A.
@@ -167,8 +166,8 @@ class ID3_cont:
 
         # Si p vaut 0 -> plog(p) vaut 0.
         return -sum([p_ci_aj * log(p_ci_aj, 2.0)
-                    for p_ci_aj in p_ci_ajs
-                    if p_ci_aj != 0])
+                     for p_ci_aj in p_ci_ajs
+                     if p_ci_aj != 0])
 
     def h_C_A(self, donnees, attribut, part_val):
         """ H(C|A) - l'entropie de la classe après avoir choisi de partitionner\
@@ -180,39 +179,33 @@ class ID3_cont:
             :return: H(C|A)
         """
 
-
         prob_less = 0
 
         for donnee in donnees:
             if float(donnee[1][attribut]) < part_val:
-                prob_less += 1/len(donnees)
+                prob_less += 1 / len(donnees)
 
-        p = [prob_less, 1-prob_less]
+        p = [prob_less, 1 - prob_less]
 
         h_more = self.h_C_aj(donnees, attribut, part_val)
         h_less = self.h_C_aj(donnees, attribut, part_val, where="gauche")
-        h = [ h_less,h_more]
+        h = [h_less, h_more]
 
         return sum([p_a * h_a for p_a, h_a in zip(p, h)])
 
-    def range_of_attr(self,donnees,attributs,attribut):
+    def range_of_attr(self, donnees, attributs, attribut):
         return range(int(min(attributs[attribut])), int(max(attributs[attribut])))
 
-    def find_min_entr(self,donnees,attributs):
+    def find_min_entr(self, donnees, attributs):
         min_entr = 1e6
         min_attr = " "
-        min_val =1
+        min_val = 1
         for a in attributs.keys():
-            for v in self.range_of_attr(donnees,attributs,a):
-                entr = self.h_C_A(donnees,a,v)
+            for v in self.range_of_attr(donnees, attributs, a):
+                entr = self.h_C_A(donnees, a, v)
                 if min_entr > entr:
-                    min_entr=entr
-                    min_attr =a
+                    min_entr = entr
+                    min_attr = a
                     min_val = v
 
-        return min_attr,min_val
-
-
-
-
-
+        return min_attr, min_val

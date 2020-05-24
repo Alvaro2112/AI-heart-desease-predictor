@@ -38,5 +38,5 @@ class RegleSansVariables:
 
     def __repr__(self):
         """ Représentation d'une règle sous forme de string. """
-        return '{} => {}'.format(str(list(self.conditions)), 
+        return '{} => {}'.format(str(list(self.conditions)),
                                  str(self.conclusion))

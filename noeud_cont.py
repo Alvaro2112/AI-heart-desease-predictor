@@ -5,7 +5,7 @@ class NoeudDeDecision_cont:
         Specifically, if we can not classify a data point, we return the predominant class (see lines 53 - 56). 
     """
 
-    def __init__(self, attribut, donnees, p_class, enfants=None,part_val= None):
+    def __init__(self, attribut, donnees, p_class, enfants=None, part_val=None):
         """
             :param attribut: l'attribut de partitionnement du noeud (``None`` si\
             le noeud est un noeud terminal).
@@ -44,39 +44,38 @@ class NoeudDeDecision_cont:
             :return: la classe de la donnée selon le noeud de décision courant.
         """
         if self.terminal():
-            return self.classe()   
+            return self.classe()
         else:
             valeur = donnee[self.attribut]
-            child =None
+            child = None
             if float(valeur) >= self.part_val:
                 child = self.enfants["droite"]
-            else :
+            else:
                 child = self.enfants["gauche"]
             try:
                 return child.classifie(donnee)
             except:
-                return  self.p_class
+                return self.p_class
 
-
-    def repr_arbre(self, level=0) :
+    def repr_arbre(self, level=0):
         """ Représentation sous forme de string de l'arbre de décision duquel\
             le noeud courant est la racine. 
         """
 
         rep = ''
         if self.terminal():
-            rep += '---'*level
+            rep += '---' * level
             rep += 'Alors {}\n'.format(self.classe())
-            rep += '---'*level
-            rep+='\n'
+            rep += '---' * level
+            rep += '\n'
 
         else:
-            rep += '---'*level
+            rep += '---' * level
             rep += 'Si {} est  < que  {}: \n'.format(self.attribut, self.part_val)
-            rep += self.enfants["gauche"].repr_arbre(level+1 )
-            rep += '---'*level
+            rep += self.enfants["gauche"].repr_arbre(level + 1)
+            rep += '---' * level
             rep += 'Si {} est >= que  {}: \n'.format(self.attribut, self.part_val)
-            rep += self.enfants["droite"].repr_arbre(level+1 )
+            rep += self.enfants["droite"].repr_arbre(level + 1)
 
         return rep
 

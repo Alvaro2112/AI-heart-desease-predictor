@@ -43,7 +43,7 @@ class NoeudDeDecision:
             :return: la classe de la donnée selon le noeud de décision courant.
         """
         if self.terminal():
-            return self.classe()   
+            return self.classe()
         else:
             valeur = donnee[self.attribut]
 
@@ -51,50 +51,49 @@ class NoeudDeDecision:
             try:
                 return enfant.classifie(donnee)
             except:
-                return  self.p_class
+                return self.p_class
 
-    def find_path(self, donnee,path):
+    def find_path(self, donnee, path):
         """ Classifie une donnée à l'aide de l'arbre de décision duquel le noeud\
             courant est la racine.
 
             :param donnee: la donnée à classifier.
             :return: la classe de la donnée selon le noeud de décision courant.
         """
-       
+
         if self.terminal():
-            path['target'] =  self.classe() 
+            path['target'] = self.classe()
             return path
         else:
             valeur = donnee[self.attribut]
             enfant = self.enfants[valeur]
-            path[self.attribut] =  valeur.upper() 
+            path[self.attribut] = valeur.upper()
             try:
-                return enfant.find_path(donnee,path)
+                return enfant.find_path(donnee, path)
             except:
                 path['target'] = self.p_class
                 return path
 
-
-    def repr_arbre(self, level=0) :
+    def repr_arbre(self, level=0):
         """ Représentation sous forme de string de l'arbre de décision duquel\
             le noeud courant est la racine. 
         """
 
         rep = ''
         if self.terminal():
-            rep += '---'*level
+            rep += '---' * level
             rep += 'Alors {}\n'.format(self.classe().upper())
-            rep += '---'*level
-           # rep += 'Décision basée sur les données:\n'
-           # for donnee in self.donnees:
-           #     rep += '---'*level
-           #     rep += str(donnee) + '\n' 
+            rep += '---' * level
+        # rep += 'Décision basée sur les données:\n'
+        # for donnee in self.donnees:
+        #     rep += '---'*level
+        #     rep += str(donnee) + '\n'
 
         else:
             for valeur, enfant in self.enfants.items():
-                rep += '---'*level
+                rep += '---' * level
                 rep += 'Si {} = {}: \n'.format(self.attribut, valeur.upper())
-                rep += enfant.repr_arbre(level+1)
+                rep += enfant.repr_arbre(level + 1)
 
         return rep
 
