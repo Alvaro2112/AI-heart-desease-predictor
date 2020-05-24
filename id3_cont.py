@@ -1,7 +1,7 @@
 from math import log
 from .noeud_de_decision_modifie import NoeudDeDecision
 
-class ID3_modif:
+class ID3_cont:
     """ Algorithme ID3. 
         This is an updated version from the one in the book (Intelligence Artificielle par la pratique).
         Specifically, in construit_arbre_recur(), if donnees == [] (line 70), it returns a terminal node with the predominant class of the dataset -- as computed in construit_arbre() -- instead of returning None.
@@ -200,14 +200,12 @@ class ID3_modif:
    
     def find_min_entr(self,donnees,attributs):
             
-        all_entropies = list()
         min_entr = 1e6
         min_attr = " "
         min_val =1
-
         for a in attributs[1].keys():
             for v in attributs[1][a]:
-                entr =all_entropies.append(self.h_C_A(donnees,a,v))
+                entr = self.h_C_A(donnees,a,v)
                 if min_entr< entr:
                     min_entr=entr
                     min_attr =a
