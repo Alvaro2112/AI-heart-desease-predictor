@@ -206,7 +206,7 @@ class ID3_cont:
         for a in attributs.keys():
             for v in attributs[a]:
                 entr = self.h_C_A(donnees,a,v)
-                if min_entr< entr:
+                if min_entr > entr:
                     min_entr=entr
                     min_attr =a
                     min_val = v
