@@ -1,8 +1,5 @@
 import copy
-from task4 import cure
-from reglesansvariables import RegleSansVariables
 
-  
 
 def rules_generator(node, rules):
     if node.terminal():

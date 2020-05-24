@@ -1,7 +1,6 @@
-from id3_cont import ID3_cont
-from regles import rules_generator
 from csvtool import csv_to_array
-from reglesansvariables import RegleSansVariables
+from id3_cont import ID3_cont
+
 
 def test( train,test):
     train = csv_to_array(train)
@@ -13,7 +12,6 @@ def test( train,test):
 
 if __name__ == "__main__":
     test("train_continuous.csv", "test_public_continuous.csv")
-            
 
 
 
@@ -25,4 +23,4 @@ if __name__ == "__main__":
 
 
 
-    
+

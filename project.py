@@ -1,9 +1,9 @@
-from regles import rules_generator
 import reglesansvariables
+import task3 as tk3
 from csvtool import csv_to_array
 from id3 import ID3
 from id3_cont import ID3_cont
-import task3 as tk3
+from regles import rules_generator
 
 
 class ResultValues():
@@ -49,7 +49,11 @@ class ResultValues():
         return healthy_rules
 
     def save_count(self, max_changes, ppl):
-        return tk3.explain_and_cure(ppl, self.arbre, self.healthy_rules(), max_changes)
+        return tk3.explain_and_cure_no_print(ppl, self.arbre, self.healthy_rules(), max_changes)
 
-if __name__ == '_main_':
-    ee = ResultValues()
+if __name__ == '__main__':
+    result = ResultValues()
+    a, b = result.save_count(2, result.train_discrete)
+    print("Saved", a, "persons out of", b , "persons with a max of 2 changes" )
+    a, b = result.save_count(1, result.train_discrete)
+    print("Saved", a, "persons out of", b, "persons with a max of 1 changes")

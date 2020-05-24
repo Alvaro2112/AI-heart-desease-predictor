@@ -1,5 +1,7 @@
 from math import log
+
 from noeud_cont import NoeudDeDecision_cont
+
 
 class ID3_cont:
     """ Algorithme ID3. 
@@ -8,7 +10,7 @@ class ID3_cont:
         Moreover, the predominant class is also passed as a parameter to NoeudDeDecision().
         difference par rapport a la version non modifiee: les valeurs des attributs sont continues, un noeud divise avec un attribut et une valeur particuliere
     """
-    
+
     def construit_arbre(self, donnees):
         """ Construit un arbre de décision à partir des données d'apprentissage.
             :param list donnees: les données d'apprentissage\
@@ -16,7 +18,7 @@ class ID3_cont:
             :return: une instance de NoeudDeDecision correspondant à la racine de\
             l'arbre de décision.
         """
-        
+
         # Nous devons extraire les domaines de valeur des 
         # attributs, puisqu'ils sont nécessaires pour 
         # construire l'arbre.
@@ -35,7 +37,7 @@ class ID3_cont:
             if [row[0] for row in donnees].count(c) >= predominant_class_counter:
                 predominant_class_counter = [row[0] for row in donnees].count(c)
                 predominant_class = c
-            
+
         arbre = self.construit_arbre_recur(donnees, attributs, predominant_class)
 
         return arbre
@@ -53,13 +55,13 @@ class ID3_cont:
         """
         def classe_unique(donnees):
             """ Vérifie que toutes les données appartiennent à la même classe. """
-            
+
             if len(donnees) == 0:
-                return True 
+                return True
             premiere_classe = donnees[0][0]
             for donnee in donnees:
                 if donnee[0] != premiere_classe:
-                    return False 
+                    return False
             return True
 
         if donnees == []:
@@ -67,10 +69,10 @@ class ID3_cont:
 
         elif classe_unique(donnees):
             return NoeudDeDecision_cont(None, donnees, str(predominant_class))
-            
+
         else:
             min_attr, part_val = self.find_min_entr(donnees,attributs)
-            
+
             new_attr_gauche = attributs.copy()
             new_attr_droite = attributs.copy()
 
@@ -84,7 +86,7 @@ class ID3_cont:
                         newdroite.add(x)
                     else:
                         newgauche.add(x)
-            
+
             new_attr_gauche[min_attr] =newgauche
             new_attr_droite[min_attr] = newdroite
 
@@ -103,7 +105,7 @@ class ID3_cont:
         """
         partitions = dict()
 
-        
+
         for donnee in donnees:
             where =""
             if float(donnee[1][attribut]) < val_part:
@@ -137,11 +139,11 @@ class ID3_cont:
                 if float(d[1][attribut]) < part_val:
                     d_j.append(d)
 
-        
+
         # Permet d'éviter les divisions par 0.
         if not d_j :
             return 0
-        
+
         donnees_ci = [donnee for donnee in d_j if donnee[0] == classe]
 
         # p(c_i|a_j) = nombre d'occurrences de la classe c_i parmi les données 
@@ -157,15 +159,15 @@ class ID3_cont:
         """
         # Les classes attestées dans les exemples.
         classes = list(set([donnee[0] for donnee in donnees]))
-        
+
         # Calcule p(c_i|a_j) pour chaque classe c_i.
 
         p_ci_ajs = [self.p_ci_aj(donnees, attribut, valeur_de_partition, classe, where)
                     for classe in classes]
 
         # Si p vaut 0 -> plog(p) vaut 0.
-        return -sum([p_ci_aj * log(p_ci_aj, 2.0) 
-                    for p_ci_aj in p_ci_ajs 
+        return -sum([p_ci_aj * log(p_ci_aj, 2.0)
+                    for p_ci_aj in p_ci_ajs
                     if p_ci_aj != 0])
 
     def h_C_A(self, donnees, attribut, part_val):
@@ -177,10 +179,10 @@ class ID3_cont:
             :param list valeur_de_partition: la valeur de l'attribut A selon laquelle on divise.
             :return: H(C|A)
         """
-        
-        
+
+
         prob_less = 0
-        
+
         for donnee in donnees:
             if float(donnee[1][attribut]) < part_val:
                 prob_less += 1/len(donnees)
@@ -195,7 +197,7 @@ class ID3_cont:
 
     def range_of_attr(self,donnees,attributs,attribut):
         return range(int(min(attributs[attribut])), int(max(attributs[attribut])))
-   
+
     def find_min_entr(self,donnees,attributs):
         min_entr = 1e6
         min_attr = " "
