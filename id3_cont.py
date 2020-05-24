@@ -8,7 +8,6 @@ class ID3_cont:
         This is an updated version from the one in the book (Intelligence Artificielle par la pratique).
         Specifically, in construit_arbre_recur(), if donnees == [] (line 70), it returns a terminal node with the predominant class of the dataset -- as computed in construit_arbre() -- instead of returning None.
         Moreover, the predominant class is also passed as a parameter to NoeudDeDecision().
-        difference par rapport a la version non modifiee: les valeurs des attributs sont continues, un noeud divise avec un attribut et une valeur particuliere
     """
 
     def construit_arbre(self, donnees):
