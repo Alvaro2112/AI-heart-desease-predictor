@@ -1,32 +1,21 @@
-import copy
+import task4 as tk4
 
 
-def cure(sick_attr, health_attr):
+def explain_and_cure(people, tree, healthy_rules, max_changes = 2):
+    num_cure = 0
+    tot_sick_ppl = 0
 
-    min_changes = dict()
-    delta_curr = len(sick_attr)
-    delta_min = len(sick_attr)
+    for p in people:
+        d = dict()
+        d = tree.find_path(p[1], d)
+        if d['target'] == '1':
+            tot_sick_ppl += 1
+            d.pop('target')
+            how, n = tk4.cure(d, healthy_rules)
+            if n <= max_changes:
+                num_cure += 1
+                print("We can cure someone with attributes  :", d, " by changing ", how)
 
-    # Loop through list attributes that lead to a healthy outcome
-    for i in health_attr:
-        changes = dict()
-
-        # Loops through attributes in chosen list
-        for j in list(i.keys()):
-            if j == 'age' or j == 'sex':
-                continue
-            value_sain = i.get(j)
-            value_malade = sick_attr.get(j)
-
-            # Checks if current argument is different from target rules
-            if (value_sain != value_malade):
-                changes[j] = value_sain
-                delta_curr = len(changes)
-
-        # Check if found new smallest change
-        if delta_curr < delta_min:
-            delta_min = delta_curr
-            min_changes = copy.deepcopy(changes)
-
-    # Return smallest rule change that leads to healthy outcome
-    return min_changes, delta_min
+    if tot_sick_ppl == 0:
+        return None
+    return num_cure / tot_sick_ppl
