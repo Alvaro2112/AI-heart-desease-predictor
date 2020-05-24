@@ -1,6 +1,4 @@
 import csv
-from task12.noeud_de_decision import NoeudDeDecision
-from task12.id3 import ID3
 
 
 def csv_to_array(name):

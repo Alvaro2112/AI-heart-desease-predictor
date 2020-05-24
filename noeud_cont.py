@@ -66,18 +66,17 @@ class NoeudDeDecision_cont:
         rep = ''
         if self.terminal():
             rep += '---'*level
-            rep += 'Alors {}\n'.format(self.classe().upper())
+            rep += 'Alors {}\n'.format(self.classe())
             rep += '---'*level
-           # rep += 'Décision basée sur les données:\n'
-           # for donnee in self.donnees:
-           #     rep += '---'*level
-           #     rep += str(donnee) + '\n' 
+            rep+='\n'
 
         else:
-            for valeur, enfant in self.enfants.items():
-                rep += '---'*level
-                rep += 'Si {} = {}: \n'.format(self.attribut, valeur.upper())
-                rep += enfant.repr_arbre(level+1)
+            rep += '---'*level
+            rep += 'Si {} est  < que  {}: \n'.format(self.attribut, self.part_val)
+            rep += self.enfants["gauche"].repr_arbre(level+1 )
+            rep += '---'*level
+            rep += 'Si {} est >= que  {}: \n'.format(self.attribut, self.part_val)
+            rep += self.enfants["droite"].repr_arbre(level+1 )
 
         return rep
 

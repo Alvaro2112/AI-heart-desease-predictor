@@ -9,7 +9,7 @@ def explain_and_cure(people,tree,healthy_rules):
         d = tree.find_path(p[1], d)
         if d['target'] =='1':
             d.pop('target')
-            n,how =tk4.cure(d, healthy_rules)
+            how,n =tk4.cure(d, healthy_rules)
             if n <=2:
                 num_cure +=1
                 print("We can cure someone with attributes  :",d, " by changing ",how)
