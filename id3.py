@@ -1,5 +1,5 @@
 from math import log
-from task12.noeud_de_decision import NoeudDeDecision
+from noeud_de_decision import NoeudDeDecision
 
 class ID3:
     """ Algorithme ID3. 
