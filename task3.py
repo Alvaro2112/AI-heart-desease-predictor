@@ -1,7 +1,7 @@
 import task4 as tk4
 
 
-def explain_and_cure(people, tree, healthy_rules, max_changes = 2):
+def explain_and_cure(people, tree, healthy_rules, max_changes=2):
     num_cure = 0
     tot_sick_ppl = 0
 
@@ -15,7 +15,12 @@ def explain_and_cure(people, tree, healthy_rules, max_changes = 2):
             if n <= max_changes:
                 num_cure += 1
                 print("We can cure someone with attributes  :", d, " by changing ", how)
-
+            else:
+                print("We can not cure someone with attributes  :", d, " by changing at most", max_changes, "attributes")
+        else:
+            d.pop('target')
+            print("Someone with attributes :",d,"is healthy")
     if tot_sick_ppl == 0:
         return None
+
     return num_cure / tot_sick_ppl

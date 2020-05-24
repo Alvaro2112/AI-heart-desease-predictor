@@ -84,5 +84,4 @@ class NoeudDeDecision_cont:
         """ Représentation sous forme de string de l'arbre de décision duquel\
             le noeud courant est la racine. 
         """
-
         return str(self.repr_arbre(level=0))

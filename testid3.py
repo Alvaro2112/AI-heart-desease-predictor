@@ -10,14 +10,6 @@ def test( train,test):
     id3 = ID3_cont()
     arbre = id3.construit_arbre(train)
     print(arbre)
-    p =0
-    t =0
-    for te in test:
-        if te[0]==arbre.classifie(te[1]):
-            p+=1
-        t+=1
-    print(t)
-    print(p/t)
 
 if __name__ == "__main__":
     test("train_continuous.csv", "test_public_continuous.csv")
