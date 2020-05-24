@@ -1,5 +1,5 @@
 from math import log
-from .noeud_de_decision_modifie import NoeudDeDecision
+from noeud_cont import NoeudDeDecision_cont
 
 class ID3_cont:
     """ Algorithme ID3. 
@@ -63,10 +63,10 @@ class ID3_cont:
             return True
 
         if donnees == []:
-            return NoeudDeDecision(None, [str(predominant_class), dict()], str(predominant_class))
+            return NoeudDeDecision_cont(None, [str(predominant_class), dict()], str(predominant_class))
 
         elif classe_unique(donnees):
-            return NoeudDeDecision(None, donnees, str(predominant_class))
+            return NoeudDeDecision_cont(None, donnees, str(predominant_class))
             
         else:
             min_attr, part_val = self.find_min_entr(donnees,attributs)
@@ -91,7 +91,7 @@ class ID3_cont:
             enfants["droite"] = self.construit_arbre_recur(partitions["droite"],new_attr_droite,predominant_class)
             enfants["gauche"] = self.construit_arbre_recur(partitions["gauche"],new_attr_gauche,predominant_class)
 
-            return NoeudDeDecision(min_attr, donnees, str(predominant_class), enfants,part_val)
+            return NoeudDeDecision_cont(min_attr, donnees, str(predominant_class), enfants,part_val)
 
     def partitionne(self, donnees, attribut, val_part):
         """ Partitionne les données sur les valeurs a_j de l'attribut A.
@@ -203,8 +203,8 @@ class ID3_cont:
         min_entr = 1e6
         min_attr = " "
         min_val =1
-        for a in attributs[1].keys():
-            for v in attributs[1][a]:
+        for a in attributs.keys():
+            for v in attributs[a]:
                 entr = self.h_C_A(donnees,a,v)
                 if min_entr< entr:
                     min_entr=entr

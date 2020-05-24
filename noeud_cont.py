@@ -1,11 +1,11 @@
-class NoeudDeDecision:
+class NoeudDeDecision_cont:
     """ Un noeud dans un arbre de décision. 
     
         This is an updated version from the one in the book (Intelligence Artificielle par la pratique).
         Specifically, if we can not classify a data point, we return the predominant class (see lines 53 - 56). 
     """
 
-    def __init__(self, attribut, donnees, p_class, enfants=None,part_val=0):
+    def __init__(self, attribut, donnees, p_class, enfants=None,part_val= None):
         """
             :param attribut: l'attribut de partitionnement du noeud (``None`` si\
             le noeud est un noeud terminal).
